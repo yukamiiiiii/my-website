@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Trust The Process</title>
+    <title>Trust The Process - Digital Marketing Services</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -31,62 +30,42 @@
         }
     </script>
     <style>
-        /* Custom scrollbar for tables */
-        .custom-scrollbar::-webkit-scrollbar {
-            height: 8px;
-            width: 8px;
+        .star-rating {
+            display: inline-flex;
+            font-size: 1.5rem;
+            color: #ddd;
+            cursor: pointer;
         }
         
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
+        .star-rating .star {
+            transition: color 0.2s;
         }
         
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
+        .star-rating .star.active {
+            color: #ffc107;
         }
         
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-        
-        /* Dark mode scrollbar */
-        .dark .custom-scrollbar::-webkit-scrollbar-track {
-            background: #374151;
-        }
-        
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #6b7280;
-        }
-        
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #9ca3af;
-        }
-        
-        /* Chart container constraints */
-        .chart-container {
-            position: relative;
-            height: 300px;
-            width: 100%;
-        }
-        
-        /* Table responsive wrapper */
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+        .star-rating .star:hover,
+        .star-rating .star.hover {
+            color: #ffc107;
         }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
     <!-- Header -->
-    <header class="bg-white dark:bg-gray-800 shadow-md transition-colors duration-300 sticky top-0 z-40">
+    <header class="bg-white dark:bg-gray-800 shadow-md transition-colors duration-300">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-4">
                     <h1 class="text-2xl font-bold text-primary-600 dark:text-primary-400">Trust The Process</h1>
-                    <span class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">ADMIN</span>
                 </div>
+                
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Home</a>
+                    <a href="products.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Services</a>
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">About</a>
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Contact</a>
+                </nav>
                 
                 <div class="flex items-center space-x-4">
                     <!-- Dark Mode Toggle -->
@@ -96,364 +75,271 @@
                     </button>
                     
                     <!-- User Menu -->
-                    <div class="relative">
+                    <div id="userMenu" class="relative">
                         <button id="userMenuButton" class="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
                             <i class="fas fa-user-circle text-xl"></i>
-                            <span id="usernameDisplay" class="hidden md:inline">Admin</span>
+                            <span id="usernameDisplay" class="hidden md:inline">Guest</span>
                             <i class="fas fa-chevron-down text-xs"></i>
                         </button>
                         
-                        <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-50 hidden">
-                            <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
-                            <a href="index.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">View Site</a>
-                            <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
+                        <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 hidden">
+                            <div id="guestOptions" class="py-1">
+                                <a href="login.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Login</a>
+                                <a href="signup.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Sign Up</a>
+                            </div>
+                            <div id="userOptions" class="py-1 hidden">
+                                <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
+                                <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
+                            </div>
+                            <div id="adminOptions" class="py-1 hidden border-t border-gray-200 dark:border-gray-700">
+                                <a href="admin.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Admin Dashboard</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button id="mobileMenuToggle" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+                <a href="#" class="block py-2 text-gray-700 dark:text-gray-300">Home</a>
+                <a href="products.html" class="block py-2 text-gray-700 dark:text-gray-300">Services</a>
+                <a href="#" class="block py-2 text-gray-700 dark:text-gray-300">About</a>
+                <a href="#" class="block py-2 text-gray-700 dark:text-gray-300">Contact</a>
             </div>
         </div>
     </header>
 
-    <!-- Admin Dashboard Content -->
-    <div class="flex min-h-screen">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-white dark:bg-gray-800 shadow-md fixed left-0 top-16 h-full overflow-y-auto custom-scrollbar z-30">
-            <nav class="p-4">
-                <ul class="space-y-2">
-                    <li>
-                        <a href="#dashboard" class="flex items-center p-2 rounded-md bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 nav-link">
-                            <i class="fas fa-tachometer-alt mr-3"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#products" class="flex items-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 nav-link">
-                            <i class="fas fa-box mr-3"></i>
-                            <span>Products</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#orders" class="flex items-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 nav-link">
-                            <i class="fas fa-shopping-cart mr-3"></i>
-                            <span>Orders</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#users" class="flex items-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 nav-link">
-                            <i class="fas fa-users mr-3"></i>
-                            <span>Users</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#reviews" class="flex items-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 nav-link">
-                            <i class="fas fa-star mr-3"></i>
-                            <span>Reviews</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#analytics" class="flex items-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 nav-link">
-                            <i class="fas fa-chart-bar mr-3"></i>
-                            <span>Analytics</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#settings" class="flex items-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 nav-link">
-                            <i class="fas fa-cog mr-3"></i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="flex-1 ml-64 p-6 max-w-7xl">
-            <!-- Dashboard Section -->
-            <section id="dashboard" class="mb-8">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">Dashboard Overview</h2>
-                
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Revenue</h3>
-                            <i class="fas fa-dollar-sign text-green-500"></i>
-                        </div>
-                        <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">$12,345</p>
-                        <p class="text-sm text-green-500 mt-2">+12.5% from last month</p>
-                    </div>
-                    
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Orders</h3>
-                            <i class="fas fa-shopping-cart text-blue-500"></i>
-                        </div>
-                        <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">87</p>
-                        <p class="text-sm text-blue-500 mt-2">+8.2% from last month</p>
-                    </div>
-                    
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Users</h3>
-                            <i class="fas fa-users text-purple-500"></i>
-                        </div>
-                        <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">523</p>
-                        <p class="text-sm text-purple-500 mt-2">+15.3% from last month</p>
-                    </div>
-                    
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Conversion Rate</h3>
-                            <i class="fas fa-chart-line text-orange-500"></i>
-                        </div>
-                        <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">3.2%</p>
-                        <p class="text-sm text-orange-500 mt-2">+0.5% from last month</p>
-                    </div>
-                </div>
-                
-                <!-- Charts -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Revenue Chart</h3>
-                        <div class="chart-container">
-                            <canvas id="revenueChart"></canvas>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Orders by Product</h3>
-                        <div class="chart-container">
-                            <canvas id="ordersChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Products Section -->
-            <section id="products" class="mb-8 hidden">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-                    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Products</h2>
-                    <button id="addProductBtn" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded transition duration-300 whitespace-nowrap">
-                        <i class="fas fa-plus mr-2"></i>Add Product
-                    </button>
-                </div>
-                
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                    <div class="table-responsive custom-scrollbar">
-                        <table class="w-full min-w-[800px]">
-                            <thead class="bg-gray-100 dark:bg-gray-700">
-                                <tr>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">ID</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Name</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Price</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Category</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Status</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="productsTableBody">
-                                <!-- Products will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Orders Section -->
-            <section id="orders" class="mb-8 hidden">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">Orders</h2>
-                
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                    <div class="table-responsive custom-scrollbar">
-                        <table class="w-full min-w-[900px]">
-                            <thead class="bg-gray-100 dark:bg-gray-700">
-                                <tr>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Order ID</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Customer</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Product</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Date</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Amount</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Status</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ordersTableBody">
-                                <!-- Orders will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Users Section -->
-            <section id="users" class="mb-8 hidden">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">Users</h2>
-                
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                    <div class="table-responsive custom-scrollbar">
-                        <table class="w-full min-w-[800px]">
-                            <thead class="bg-gray-100 dark:bg-gray-700">
-                                <tr>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">ID</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Username</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Email</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Join Date</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Status</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="usersTableBody">
-                                <!-- Users will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Reviews Section -->
-            <section id="reviews" class="mb-8 hidden">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">Reviews</h2>
-                
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                    <div class="table-responsive custom-scrollbar">
-                        <table class="w-full min-w-[1000px]">
-                            <thead class="bg-gray-100 dark:bg-gray-700">
-                                <tr>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">ID</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Product</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">User</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Rating</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 min-w-[300px]">Comment</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Date</th>
-                                    <th class="px-4 py-3 text-left text-gray-700 dark:text-gray-300 whitespace-nowrap">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="reviewsTableBody">
-                                <!-- Reviews will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Analytics Section -->
-            <section id="analytics" class="mb-8 hidden">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">Analytics</h2>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Traffic Sources</h3>
-                        <div class="chart-container">
-                            <canvas id="trafficChart"></canvas>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">User Demographics</h3>
-                        <div class="chart-container">
-                            <canvas id="demographicsChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Settings Section -->
-            <section id="settings" class="mb-8 hidden">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">Settings</h2>
-                
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-                    <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Site Settings</h3>
-                    
-                    <div class="mb-4">
-                        <label for="siteName" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Site Name</label>
-                        <input type="text" id="siteName" value="Trust The Process" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white">
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="siteEmail" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Site Email</label>
-                        <input type="email" id="siteEmail" value="admin@trusttheprocess.com" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white">
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="siteDescription" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Site Description</label>
-                        <textarea id="siteDescription" rows="4" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white">Your trusted partner for digital marketing success.</textarea>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="flex items-center">
-                            <input type="checkbox" id="maintenanceMode" class="mr-2">
-                            <span class="text-gray-700 dark:text-gray-300">Enable Maintenance Mode</span>
-                        </label>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="flex items-center">
-                            <input type="checkbox" id="registrationEnabled" checked class="mr-2">
-                            <span class="text-gray-700 dark:text-gray-300">Enable User Registration</span>
-                        </label>
-                    </div>
-                    
-                    <button id="saveSettingsBtn" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded transition duration-300">
-                        Save Settings
-                    </button>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- Product Modal -->
-    <div id="productModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
-            <div class="mt-3">
-                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-200 mb-4">Add Product</h3>
-                
-                <form id="productForm">
-                    <div class="mb-4">
-                        <label for="productName" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Product Name</label>
-                        <input type="text" id="productName" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white" required>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="productPrice" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Price</label>
-                        <input type="number" id="productPrice" step="0.01" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white" required>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="productCategory" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Category</label>
-                        <select id="productCategory" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white" required>
-                            <option value="SEO">SEO</option>
-                            <option value="Social Media">Social Media</option>
-                            <option value="Email Marketing">Email Marketing</option>
-                            <option value="Content Marketing">Content Marketing</option>
-                            <option value="PPC">PPC</option>
-                        </select>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="productDescription" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Description</label>
-                        <textarea id="productDescription" rows="4" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white" required></textarea>
-                    </div>
-                    
-                    <div class="flex justify-end space-x-2">
-                        <button type="button" id="cancelProductBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded transition duration-300">
-                            Cancel
-                        </button>
-                        <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded transition duration-300">
-                            Add Product
-                        </button>
-                    </div>
-                </form>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-primary-500 to-primary-700 text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Premium Digital Marketing Services</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Transform your business with our expert digital marketing solutions. From SEO to social media, we've got you covered.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="products.html" class="bg-white text-primary-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition duration-300">Browse Services</a>
+                <a href="#features" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-bold py-3 px-8 rounded-full transition duration-300">Learn More</a>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-200">Why Choose Our Services</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+                    <div class="text-primary-600 dark:text-primary-400 mb-4">
+                        <i class="fas fa-rocket text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">Fast Results</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Get measurable results quickly with our proven marketing strategies and tactics.</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+                    <div class="text-primary-600 dark:text-primary-400 mb-4">
+                        <i class="fas fa-chart-line text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">Data-Driven Approach</h3>
+                    <p class="text-gray-600 dark:text-gray-400">We use analytics and data to make informed decisions that drive growth and ROI.</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+                    <div class="text-primary-600 dark:text-primary-400 mb-4">
+                        <i class="fas fa-users text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">Expert Team</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Our team of marketing specialists has years of experience across various industries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview -->
+    <section class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-200">Our Popular Services</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
+                    <div class="h-48 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center">
+                        <i class="fas fa-search text-white text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">SEO Optimization</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Improve your search engine rankings and drive organic traffic to your website.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">$299</span>
+                            <a href="product-detail.html?id=1" class="text-primary-600 dark:text-primary-400 hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service Card 2 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
+                    <div class="h-48 bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center">
+                        <i class="fas fa-share-alt text-white text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Social Media Marketing</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Build your brand presence and engage with your audience on social platforms.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">$399</span>
+                            <a href="product-detail.html?id=2" class="text-primary-600 dark:text-primary-400 hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service Card 3 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
+                    <div class="h-48 bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center">
+                        <i class="fas fa-envelope text-white text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Email Marketing</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Create effective email campaigns that convert subscribers into customers.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">$249</span>
+                            <a href="product-detail.html?id=3" class="text-primary-600 dark:text-primary-400 hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-10">
+                <a href="products.html" class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">View All Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-200">What Our Clients Say</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">"The SEO services provided by Trust The Process helped our website rank on the first page of Google within just 3 months!"</p>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/seed/person1/50/50.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 dark:text-gray-200">Sarah Johnson</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">CEO, TechStart</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">"Our social media engagement increased by 200% after implementing their strategies. Highly recommend!"</p>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/seed/person2/50/50.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 dark:text-gray-200">Michael Chen</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Marketing Director, FashionHub</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">"The email marketing campaigns they designed have a 45% open rate and 12% conversion rate. Exceptional results!"</p>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/seed/person3/50/50.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 dark:text-gray-200">Emily Rodriguez</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Founder, FoodieDelight</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-primary-600 py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Ready to Grow Your Business?</h2>
+            <p class="text-xl text-white mb-8 max-w-2xl mx-auto">Get started today with our digital marketing services and see the difference for yourself.</p>
+            <a href="products.html" class="bg-white text-primary-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition duration-300">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Trust The Process</h3>
+                    <p class="text-gray-400">Your trusted partner for digital marketing success.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white transition">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Portfolio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2023 Trust The Process. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // Check if user is admin
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (!currentUser || !currentUser.isAdmin) {
-            window.location.href = 'login.html';
-        }
-        
         // Dark Mode Toggle
         const darkModeToggle = document.getElementById('darkModeToggle');
         const html = document.documentElement;
@@ -467,6 +353,14 @@
         darkModeToggle.addEventListener('click', () => {
             html.classList.toggle('dark');
             localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
         
         // User Menu
@@ -484,6 +378,23 @@
             }
         });
         
+        // Check if user is logged in
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        const guestOptions = document.getElementById('guestOptions');
+        const userOptions = document.getElementById('userOptions');
+        const adminOptions = document.getElementById('adminOptions');
+        
+        if (currentUser) {
+            usernameDisplay.textContent = currentUser.username;
+            guestOptions.classList.add('hidden');
+            userOptions.classList.remove('hidden');
+            
+            if (currentUser.isAdmin) {
+                adminOptions.classList.remove('hidden');
+            }
+        }
+        
         // Logout functionality
         const logoutButton = document.getElementById('logoutButton');
         if (logoutButton) {
@@ -493,434 +404,6 @@
                 window.location.href = 'index.html';
             });
         }
-        
-        // Navigation
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('main section');
-        
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                const targetId = link.getAttribute('href').substring(1);
-                
-                // Update active nav link
-                navLinks.forEach(l => {
-                    l.classList.remove('bg-primary-100', 'dark:bg-primary-900', 'text-primary-600', 'dark:text-primary-400');
-                    l.classList.add('text-gray-700', 'dark:text-gray-300');
-                });
-                
-                link.classList.remove('text-gray-700', 'dark:text-gray-300');
-                link.classList.add('bg-primary-100', 'dark:bg-primary-900', 'text-primary-600', 'dark:text-primary-400');
-                
-                // Show target section
-                sections.forEach(section => {
-                    section.classList.add('hidden');
-                });
-                
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    targetSection.classList.remove('hidden');
-                }
-            });
-        });
-        
-        // Initialize products if not exists
-        if (!localStorage.getItem('products')) {
-            const initialProducts = [
-                {
-                    id: '1',
-                    name: 'SEO Optimization',
-                    price: 299,
-                    category: 'SEO',
-                    description: 'Improve your search engine rankings and drive organic traffic to your website.',
-                    status: 'Active',
-                    image: 'https://picsum.photos/seed/seo/300/200.jpg'
-                },
-                {
-                    id: '2',
-                    name: 'Social Media Marketing',
-                    price: 399,
-                    category: 'Social Media',
-                    description: 'Build your brand presence and engage with your audience on social platforms.',
-                    status: 'Active',
-                    image: 'https://picsum.photos/seed/social/300/200.jpg'
-                },
-                {
-                    id: '3',
-                    name: 'Email Marketing',
-                    price: 249,
-                    category: 'Email Marketing',
-                    description: 'Create effective email campaigns that convert subscribers into customers.',
-                    status: 'Active',
-                    image: 'https://picsum.photos/seed/email/300/200.jpg'
-                }
-            ];
-            
-            localStorage.setItem('products', JSON.stringify(initialProducts));
-        }
-        
-        // Load products
-        function loadProducts() {
-            const products = JSON.parse(localStorage.getItem('products')) || [];
-            const productsTableBody = document.getElementById('productsTableBody');
-            
-            productsTableBody.innerHTML = '';
-            
-            products.forEach(product => {
-                const row = document.createElement('tr');
-                row.className = 'border-b border-gray-200 dark:border-gray-700';
-                
-                row.innerHTML = `
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${product.id}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${product.name}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">$${product.price}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${product.category}</td>
-                    <td class="px-4 py-3">
-                        <span class="px-2 py-1 text-xs rounded-full ${product.status === 'Active' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'}">
-                            ${product.status}
-                        </span>
-                    </td>
-                    <td class="px-4 py-3">
-                        <button class="text-blue-600 dark:text-blue-400 hover:underline mr-2">Edit</button>
-                        <button class="text-red-600 dark:text-red-400 hover:underline">Delete</button>
-                    </td>
-                `;
-                
-                productsTableBody.appendChild(row);
-            });
-        }
-        
-        // Load users
-        function loadUsers() {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            const usersTableBody = document.getElementById('usersTableBody');
-            
-            usersTableBody.innerHTML = '';
-            
-            users.forEach(user => {
-                const row = document.createElement('tr');
-                row.className = 'border-b border-gray-200 dark:border-gray-700';
-                
-                row.innerHTML = `
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${user.id}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${user.username}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${user.email}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${new Date(user.createdAt).toLocaleDateString()}</td>
-                    <td class="px-4 py-3">
-                        <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                            Active
-                        </span>
-                    </td>
-                    <td class="px-4 py-3">
-                        <button class="text-blue-600 dark:text-blue-400 hover:underline mr-2">View</button>
-                        <button class="text-red-600 dark:text-red-400 hover:underline">Suspend</button>
-                    </td>
-                `;
-                
-                usersTableBody.appendChild(row);
-            });
-        }
-        
-        // Load reviews
-        function loadReviews() {
-            const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-            const reviewsTableBody = document.getElementById('reviewsTableBody');
-            
-            reviewsTableBody.innerHTML = '';
-            
-            reviews.forEach(review => {
-                const row = document.createElement('tr');
-                row.className = 'border-b border-gray-200 dark:border-gray-700';
-                
-                const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
-                
-                row.innerHTML = `
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${review.id}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${review.productName}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${review.username}</td>
-                    <td class="px-4 py-3 text-yellow-500">${stars}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200 truncate" title="${review.comment}">${review.comment}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${new Date(review.date).toLocaleDateString()}</td>
-                    <td class="px-4 py-3">
-                        <button class="text-blue-600 dark:text-blue-400 hover:underline mr-2">Approve</button>
-                        <button class="text-red-600 dark:text-red-400 hover:underline">Delete</button>
-                    </td>
-                `;
-                
-                reviewsTableBody.appendChild(row);
-            });
-        }
-        
-        // Initialize sample orders if not exists
-        if (!localStorage.getItem('orders')) {
-            const initialOrders = [
-                {
-                    id: 'ORD001',
-                    customer: 'John Doe',
-                    product: 'SEO Optimization',
-                    date: '2023-10-15',
-                    amount: 299,
-                    status: 'Completed'
-                },
-                {
-                    id: 'ORD002',
-                    customer: 'Jane Smith',
-                    product: 'Social Media Marketing',
-                    date: '2023-10-16',
-                    amount: 399,
-                    status: 'Processing'
-                },
-                {
-                    id: 'ORD003',
-                    customer: 'Bob Johnson',
-                    product: 'Email Marketing',
-                    date: '2023-10-17',
-                    amount: 249,
-                    status: 'Pending'
-                }
-            ];
-            
-            localStorage.setItem('orders', JSON.stringify(initialOrders));
-        }
-        
-        // Load orders
-        function loadOrders() {
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            const ordersTableBody = document.getElementById('ordersTableBody');
-            
-            ordersTableBody.innerHTML = '';
-            
-            orders.forEach(order => {
-                const row = document.createElement('tr');
-                row.className = 'border-b border-gray-200 dark:border-gray-700';
-                
-                row.innerHTML = `
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${order.id}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${order.customer}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${order.product}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">${order.date}</td>
-                    <td class="px-4 py-3 text-gray-800 dark:text-gray-200">$${order.amount}</td>
-                    <td class="px-4 py-3">
-                        <span class="px-2 py-1 text-xs rounded-full ${
-                            order.status === 'Completed' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
-                            order.status === 'Processing' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' :
-                            'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                        }">
-                            ${order.status}
-                        </span>
-                    </td>
-                    <td class="px-4 py-3">
-                        <button class="text-blue-600 dark:text-blue-400 hover:underline mr-2">View</button>
-                        <button class="text-red-600 dark:text-red-400 hover:underline">Cancel</button>
-                    </td>
-                `;
-                
-                ordersTableBody.appendChild(row);
-            });
-        }
-        
-        // Product Modal
-        const productModal = document.getElementById('productModal');
-        const addProductBtn = document.getElementById('addProductBtn');
-        const cancelProductBtn = document.getElementById('cancelProductBtn');
-        const productForm = document.getElementById('productForm');
-        
-        addProductBtn.addEventListener('click', () => {
-            productModal.classList.remove('hidden');
-        });
-        
-        cancelProductBtn.addEventListener('click', () => {
-            productModal.classList.add('hidden');
-        });
-        
-        productForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('productName').value;
-            const price = parseFloat(document.getElementById('productPrice').value);
-            const category = document.getElementById('productCategory').value;
-            const description = document.getElementById('productDescription').value;
-            
-            const products = JSON.parse(localStorage.getItem('products')) || [];
-            
-            const newProduct = {
-                id: Date.now().toString(),
-                name,
-                price,
-                category,
-                description,
-                status: 'Active',
-                image: `https://picsum.photos/seed/${name.replace(/\s+/g, '').toLowerCase()}/300/200.jpg`
-            };
-            
-            products.push(newProduct);
-            localStorage.setItem('products', JSON.stringify(products));
-            
-            loadProducts();
-            productModal.classList.add('hidden');
-            productForm.reset();
-        });
-        
-        // Settings
-        const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-        
-        saveSettingsBtn.addEventListener('click', () => {
-            const siteName = document.getElementById('siteName').value;
-            const siteEmail = document.getElementById('siteEmail').value;
-            const siteDescription = document.getElementById('siteDescription').value;
-            const maintenanceMode = document.getElementById('maintenanceMode').checked;
-            const registrationEnabled = document.getElementById('registrationEnabled').checked;
-            
-            const settings = {
-                siteName,
-                siteEmail,
-                siteDescription,
-                maintenanceMode,
-                registrationEnabled
-            };
-            
-            localStorage.setItem('siteSettings', JSON.stringify(settings));
-            
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-md z-50';
-            successMessage.textContent = 'Settings saved successfully!';
-            document.body.appendChild(successMessage);
-            
-            setTimeout(() => {
-                successMessage.remove();
-            }, 3000);
-        });
-        
-        // Initialize charts
-        function initCharts() {
-            // Revenue Chart
-            const revenueCtx = document.getElementById('revenueChart');
-            if (revenueCtx) {
-                new Chart(revenueCtx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                        datasets: [{
-                            label: 'Revenue',
-                            data: [1200, 1900, 3000, 2500, 3200, 3900],
-                            backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                            borderColor: 'rgba(59, 130, 246, 1)',
-                            borderWidth: 2,
-                            tension: 0.4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function(value) {
-                                        return '$' + value;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-            
-            // Orders Chart
-            const ordersCtx = document.getElementById('ordersChart');
-            if (ordersCtx) {
-                new Chart(ordersCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['SEO', 'Social Media', 'Email Marketing', 'Content Marketing', 'PPC'],
-                        datasets: [{
-                            label: 'Orders',
-                            data: [12, 19, 8, 15, 6],
-                            backgroundColor: [
-                                'rgba(59, 130, 246, 0.7)',
-                                'rgba(147, 51, 234, 0.7)',
-                                'rgba(34, 197, 94, 0.7)',
-                                'rgba(251, 146, 60, 0.7)',
-                                'rgba(239, 68, 68, 0.7)'
-                            ],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            }
-            
-            // Traffic Chart
-            const trafficCtx = document.getElementById('trafficChart');
-            if (trafficCtx) {
-                new Chart(trafficCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Direct', 'Social', 'Referral', 'Organic', 'Paid'],
-                        datasets: [{
-                            data: [30, 25, 15, 20, 10],
-                            backgroundColor: [
-                                'rgba(59, 130, 246, 0.7)',
-                                'rgba(147, 51, 234, 0.7)',
-                                'rgba(34, 197, 94, 0.7)',
-                                'rgba(251, 146, 60, 0.7)',
-                                'rgba(239, 68, 68, 0.7)'
-                            ],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false
-                    }
-                });
-            }
-            
-            // Demographics Chart
-            const demographicsCtx = document.getElementById('demographicsChart');
-            if (demographicsCtx) {
-                new Chart(demographicsCtx, {
-                    type: 'pie',
-                    data: {
-                        labels: ['18-24', '25-34', '35-44', '45-54', '55+'],
-                        datasets: [{
-                            data: [15, 35, 25, 15, 10],
-                            backgroundColor: [
-                                'rgba(59, 130, 246, 0.7)',
-                                'rgba(147, 51, 234, 0.7)',
-                                'rgba(34, 197, 94, 0.7)',
-                                'rgba(251, 146, 60, 0.7)',
-                                'rgba(239, 68, 68, 0.7)'
-                            ],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false
-                    }
-                });
-            }
-        }
-        
-        // Load data when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProducts();
-            loadUsers();
-            loadReviews();
-            loadOrders();
-            initCharts();
-        });
     </script>
 </body>
 </html>
