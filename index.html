@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust The Process - Digital Marketing Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .star-rating {
+            display: inline-flex;
+            font-size: 1.5rem;
+            color: #ddd;
+            cursor: pointer;
+        }
+        
+        .star-rating .star {
+            transition: color 0.2s;
+        }
+        
+        .star-rating .star.active {
+            color: #ffc107;
+        }
+        
+        .star-rating .star:hover,
+        .star-rating .star.hover {
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-md transition-colors duration-300">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold text-primary-600 dark:text-primary-400">Trust The Process</h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Home</a>
+                    <a href="products.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Services</a>
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">About</a>
+                    <a href="#" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Contact</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline"></i>
+                    </button>
+                    
+                    <!-- User Menu -->
+                    <div id="userMenu" class="relative">
+                        <button id="userMenuButton" class="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
+                            <i class="fas fa-user-circle text-xl"></i>
+                            <span id="usernameDisplay" class="hidden md:inline">Guest</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        
+                        <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 hidden">
+                            <div id="guestOptions" class="py-1">
+                                <a href="login.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Login</a>
+                                <a href="signup.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Sign Up</a>
+                            </div>
+                            <div id="userOptions" class="py-1 hidden">
+                                <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
+                                <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
+                            </div>
+                            <div id="adminOptions" class="py-1 hidden border-t border-gray-200 dark:border-gray-700">
+                                <a href="admin.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Admin Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button id="mobileMenuToggle" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+                <a href="#" class="block py-2 text-gray-700 dark:text-gray-300">Home</a>
+                <a href="products.html" class="block py-2 text-gray-700 dark:text-gray-300">Services</a>
+                <a href="#" class="block py-2 text-gray-700 dark:text-gray-300">About</a>
+                <a href="#" class="block py-2 text-gray-700 dark:text-gray-300">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-primary-500 to-primary-700 text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Premium Digital Marketing Services</h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">Transform your business with our expert digital marketing solutions. From SEO to social media, we've got you covered.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="products.html" class="bg-white text-primary-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition duration-300">Browse Services</a>
+                <a href="#features" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-bold py-3 px-8 rounded-full transition duration-300">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-200">Why Choose Our Services</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+                    <div class="text-primary-600 dark:text-primary-400 mb-4">
+                        <i class="fas fa-rocket text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">Fast Results</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Get measurable results quickly with our proven marketing strategies and tactics.</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+                    <div class="text-primary-600 dark:text-primary-400 mb-4">
+                        <i class="fas fa-chart-line text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">Data-Driven Approach</h3>
+                    <p class="text-gray-600 dark:text-gray-400">We use analytics and data to make informed decisions that drive growth and ROI.</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+                    <div class="text-primary-600 dark:text-primary-400 mb-4">
+                        <i class="fas fa-users text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">Expert Team</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Our team of marketing specialists has years of experience across various industries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview -->
+    <section class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-200">Our Popular Services</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
+                    <div class="h-48 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center">
+                        <i class="fas fa-search text-white text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">SEO Optimization</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Improve your search engine rankings and drive organic traffic to your website.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">$299</span>
+                            <a href="product-detail.html?id=1" class="text-primary-600 dark:text-primary-400 hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service Card 2 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
+                    <div class="h-48 bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center">
+                        <i class="fas fa-share-alt text-white text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Social Media Marketing</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Build your brand presence and engage with your audience on social platforms.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">$399</span>
+                            <a href="product-detail.html?id=2" class="text-primary-600 dark:text-primary-400 hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service Card 3 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
+                    <div class="h-48 bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center">
+                        <i class="fas fa-envelope text-white text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">Email Marketing</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Create effective email campaigns that convert subscribers into customers.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">$249</span>
+                            <a href="product-detail.html?id=3" class="text-primary-600 dark:text-primary-400 hover:underline">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-10">
+                <a href="products.html" class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">View All Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-200">What Our Clients Say</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">"The SEO services provided by Trust The Process helped our website rank on the first page of Google within just 3 months!"</p>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/seed/person1/50/50.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 dark:text-gray-200">Sarah Johnson</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">CEO, TechStart</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">"Our social media engagement increased by 200% after implementing their strategies. Highly recommend!"</p>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/seed/person2/50/50.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 dark:text-gray-200">Michael Chen</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Marketing Director, FashionHub</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">"The email marketing campaigns they designed have a 45% open rate and 12% conversion rate. Exceptional results!"</p>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/seed/person3/50/50.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 dark:text-gray-200">Emily Rodriguez</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Founder, FoodieDelight</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-primary-600 py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Ready to Grow Your Business?</h2>
+            <p class="text-xl text-white mb-8 max-w-2xl mx-auto">Get started today with our digital marketing services and see the difference for yourself.</p>
+            <a href="products.html" class="bg-white text-primary-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition duration-300">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Trust The Process</h3>
+                    <p class="text-gray-400">Your trusted partner for digital marketing success.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white transition">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Portfolio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2023 Trust The Process. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved dark mode preference
+        const darkMode = localStorage.getItem('darkMode');
+        if (darkMode === 'true') {
+            html.classList.add('dark');
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // User Menu
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userDropdown = document.getElementById('userDropdown');
+        
+        userMenuButton.addEventListener('click', () => {
+            userDropdown.classList.toggle('hidden');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!userMenuButton.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+        
+        // Check if user is logged in
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        const guestOptions = document.getElementById('guestOptions');
+        const userOptions = document.getElementById('userOptions');
+        const adminOptions = document.getElementById('adminOptions');
+        
+        if (currentUser) {
+            usernameDisplay.textContent = currentUser.username;
+            guestOptions.classList.add('hidden');
+            userOptions.classList.remove('hidden');
+            
+            if (currentUser.isAdmin) {
+                adminOptions.classList.remove('hidden');
+            }
+        }
+        
+        // Logout functionality
+        const logoutButton = document.getElementById('logoutButton');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            });
+        }
+    </script>
+</body>
+</html>

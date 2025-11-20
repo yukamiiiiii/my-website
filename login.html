@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Trust The Process</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-md transition-colors duration-300">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold text-primary-600 dark:text-primary-400">Trust The Process</h1>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline"></i>
+                    </button>
+                    
+                    <a href="index.html" class="text-primary-600 dark:text-primary-400 hover:underline">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Section -->
+    <section class="py-16 flex-grow">
+        <div class="container mx-auto px-4">
+            <div class="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">Login to Your Account</h2>
+                
+                <div id="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 hidden"></div>
+                <div id="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 hidden"></div>
+                
+                <form id="loginForm">
+                    <div class="mb-4">
+                        <label for="username" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Username</label>
+                        <input type="text" id="username" name="username" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white" required>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="password" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white" required>
+                            <button type="button" id="togglePassword" class="absolute right-3 top-3 text-gray-500 dark:text-gray-400">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300">
+                            Login
+                        </button>
+                    </div>
+                    
+                    <div class="text-center">
+                        <p class="text-gray-600 dark:text-gray-400">Don't have an account? <a href="signup.html" class="text-primary-600 dark:text-primary-400 hover:underline">Sign Up</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Trust The Process. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved dark mode preference
+        const darkMode = localStorage.getItem('darkMode');
+        if (darkMode === 'true') {
+            html.classList.add('dark');
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+        
+        // Toggle Password Visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle icon
+            const icon = togglePassword.querySelector('i');
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+        });
+        
+        // Login Form Submission
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Hide previous messages
+            errorMessage.classList.add('hidden');
+            successMessage.classList.add('hidden');
+            
+            // Hash the password for comparison
+            const hashedPassword = CryptoJS.SHA256(password).toString();
+            
+            // Check if it's the admin account
+            if (username === 'yukadmin' && password === 'admin123') {
+                const adminUser = {
+                    id: 'admin123',
+                    username: 'yukadmin',
+                    email: 'admin@trusttheprocess.com',
+                    isAdmin: true,
+                    createdAt: new Date().toISOString()
+                };
+                
+                localStorage.setItem('currentUser', JSON.stringify(adminUser));
+                successMessage.textContent = 'Login successful! Redirecting to admin dashboard...';
+                successMessage.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    window.location.href = 'admin.html';
+                }, 1500);
+                return;
+            }
+            
+            // Check for regular user accounts
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.username === username && u.password === hashedPassword);
+            
+            if (user) {
+                // Create a user object without the password for localStorage
+                const userSession = {
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    isAdmin: false,
+                    createdAt: user.createdAt
+                };
+                
+                localStorage.setItem('currentUser', JSON.stringify(userSession));
+                successMessage.textContent = 'Login successful! Redirecting...';
+                successMessage.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            } else {
+                errorMessage.textContent = 'Invalid username or password. Please try again.';
+                errorMessage.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
