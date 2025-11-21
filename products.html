@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Trust The Process</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .star-rating {
+            display: inline-flex;
+            font-size: 1rem;
+            color: #ddd;
+        }
+        
+        .star-rating .star {
+            transition: color 0.2s;
+        }
+        
+        .star-rating .star.filled {
+            color: #ffc107;
+        }
+        
+        .product-card {
+            transition: all 0.2s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-tab {
+            transition: all 0.2s ease;
+        }
+        
+        .filter-badge {
+            transition: all 0.2s ease;
+        }
+        
+        /* Fixed dimensions for images to prevent layout shift */
+        .product-image {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-md transition-colors duration-300 sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold text-primary-600 dark:text-primary-400">Trust The Process</h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Home</a>
+                    <a href="#" class="text-primary-600 dark:text-primary-400 font-semibold">Services</a>
+                    <a href="about.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">About</a>
+                    <a href="contact.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Contact</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline"></i>
+                    </button>
+                    
+                    <!-- User Menu -->
+                    <div id="userMenu" class="relative">
+                        <button id="userMenuButton" class="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
+                            <i class="fas fa-user-circle text-xl"></i>
+                            <span id="usernameDisplay" class="hidden md:inline">Guest</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        
+                        <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 hidden">
+                            <div id="guestOptions" class="py-1">
+                                <a href="login.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Login</a>
+                                <a href="signup.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Sign Up</a>
+                            </div>
+                            <div id="userOptions" class="py-1 hidden">
+                                <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
+                                <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
+                            </div>
+                            <div id="adminOptions" class="py-1 hidden border-t border-gray-200 dark:border-gray-700">
+                                <a href="admin.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Admin Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button id="mobileMenuToggle" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+                <a href="index.html" class="block py-2 text-gray-700 dark:text-gray-300">Home</a>
+                <a href="#" class="block py-2 text-primary-600 dark:text-primary-400 font-semibold">Services</a>
+                <a href="about.html" class="block py-2 text-gray-700 dark:text-gray-300">About</a>
+                <a href="contact.html" class="block py-2 text-gray-700 dark:text-gray-300">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Our Digital Products & Services</h2>
+                <p class="text-xl mb-8 max-w-3xl mx-auto">Explore our premium e-books and professional digital marketing services</p>
+                
+                <!-- Search Bar -->
+                <div class="max-w-2xl mx-auto">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="Search for e-books or services..." class="w-full px-6 py-4 pr-12 rounded-full text-gray-800 focus:outline-none focus:ring-4 focus:ring-purple-300">
+                        <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary-600 hover:bg-primary-700 text-white p-3 rounded-full transition">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Tabs -->
+    <section class="py-8 bg-white dark:bg-gray-800 shadow-sm sticky top-16 z-30">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="category-tab active px-6 py-3 rounded-full font-semibold transition" data-category="all">
+                    <i class="fas fa-th-large mr-2"></i>All Products
+                </button>
+                <button class="category-tab px-6 py-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-category="ebooks">
+                    <i class="fas fa-book mr-2"></i>E-Books
+                </button>
+                <button class="category-tab px-6 py-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-category="services">
+                    <i class="fas fa-cogs mr-2"></i>Services
+                </button>
+                <button class="category-tab px-6 py-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-category="seo">
+                    <i class="fas fa-search mr-2"></i>SEO
+                </button>
+                <button class="category-tab px-6 py-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-category="social">
+                    <i class="fas fa-share-alt mr-2"></i>Social Media
+                </button>
+                <button class="category-tab px-6 py-3 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-category="email">
+                    <i class="fas fa-envelope mr-2"></i>Email Marketing
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="py-6 bg-gray-100 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-700 dark:text-gray-300 font-medium">Filter by price:</span>
+                    <button class="filter-badge px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-sm border border-gray-300 dark:border-gray-600 hover:border-primary-500" data-price="all">All</button>
+                    <button class="filter-badge px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-sm border border-gray-300 dark:border-gray-600 hover:border-primary-500" data-price="0-50">$0 - $50</button>
+                    <button class="filter-badge px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-sm border border-gray-300 dark:border-gray-600 hover:border-primary-500" data-price="50-200">$50 - $200</button>
+                    <button class="filter-badge px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-sm border border-gray-300 dark:border-gray-600 hover:border-primary-500" data-price="200+">$200+</button>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-700 dark:text-gray-300 font-medium">Sort by:</span>
+                    <select id="sortSelect" class="px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-sm border border-gray-300 dark:border-gray-600 focus:outline-none focus:border-primary-500">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Highest Rated</option>
+                        <option value="newest">Newest</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Products will be loaded here by JavaScript -->
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button id="loadMoreBtn" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">
+                    Load More Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Trust The Process</h3>
+                    <p class="text-gray-400">Your trusted partner for digital marketing success.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white transition">Services</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition">About</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2023 Trust The Process. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 max-w-4xl shadow-lg rounded-md bg-white dark:bg-gray-800">
+            <div class="flex justify-between items-start mb-4">
+                <h3 id="modalTitle" class="text-2xl font-bold text-gray-900 dark:text-gray-200"></h3>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <img id="modalImage" src="" alt="" class="w-full rounded-lg">
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <span id="modalCategory" class="inline-block px-3 py-1 text-sm rounded-full bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200"></span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <div id="modalRating" class="star-rating mr-2"></div>
+                            <span id="modalRatingText" class="text-gray-600 dark:text-gray-400"></span>
+                        </div>
+                        <p id="modalReviews" class="text-sm text-gray-500 dark:text-gray-400"></p>
+                    </div>
+                    
+                    <p id="modalDescription" class="text-gray-700 dark:text-gray-300 mb-6"></p>
+                    
+                    <div class="mb-6">
+                        <span id="modalPrice" class="text-3xl font-bold text-primary-600 dark:text-primary-400"></span>
+                    </div>
+                    
+                    <div class="flex gap-3">
+                        <button id="addToCartBtn" class="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                            <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
+                        </button>
+                        <button id="buyNowBtn" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reviews Section -->
+            <div class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6">
+                <h4 class="text-xl font-bold mb-4 text-gray-900 dark:text-gray-200">Customer Reviews</h4>
+                <div id="reviewsContainer" class="space-y-4 max-h-96 overflow-y-auto">
+                    <!-- Reviews will be loaded here -->
+                </div>
+                
+                <!-- Add Review Form -->
+                <div class="mt-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                    <h5 class="font-bold mb-3 text-gray-900 dark:text-gray-200">Leave a Review</h5>
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Your Rating</label>
+                        <div id="userRating" class="star-rating cursor-pointer">
+                            <i class="fas fa-star star" data-rating="1"></i>
+                            <i class="fas fa-star star" data-rating="2"></i>
+                            <i class="fas fa-star star" data-rating="3"></i>
+                            <i class="fas fa-star star" data-rating="4"></i>
+                            <i class="fas fa-star star" data-rating="5"></i>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <textarea id="reviewText" rows="3" placeholder="Write your review..." class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-700 dark:text-white"></textarea>
+                    </div>
+                    <button id="submitReview" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        Submit Review
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample product data
+        const products = [
+            // E-Books
+            {
+                id: 1,
+                name: "Digital Marketing Mastery",
+                category: "ebooks",
+                price: 29.99,
+                rating: 4.5,
+                reviews: 234,
+                image: "https://picsum.photos/seed/ebook1/400/300.jpg",
+                description: "Complete guide to digital marketing strategies that work in 2023. Learn SEO, social media, and content marketing from industry experts.",
+                featured: true
+            },
+            {
+                id: 2,
+                name: "SEO Secrets Revealed",
+                category: "ebooks",
+                subcategory: "seo",
+                price: 39.99,
+                rating: 4.8,
+                reviews: 189,
+                image: "https://picsum.photos/seed/ebook2/400/300.jpg",
+                description: "Unlock secrets of top SEO professionals. Learn advanced techniques to rank #1 on Google.",
+                featured: true
+            },
+            {
+                id: 3,
+                name: "Social Media Marketing Blueprint",
+                category: "ebooks",
+                subcategory: "social",
+                price: 34.99,
+                rating: 4.3,
+                reviews: 156,
+                image: "https://picsum.photos/seed/ebook3/400/300.jpg",
+                description: "Step-by-step guide to building a massive following on social media platforms and converting followers into customers."
+            },
+            {
+                id: 4,
+                name: "Email Marketing Automation",
+                category: "ebooks",
+                subcategory: "email",
+                price: 44.99,
+                rating: 4.6,
+                reviews: 203,
+                image: "https://picsum.photos/seed/ebook4/400/300.jpg",
+                description: "Master email marketing automation to nurture leads and increase conversions while you sleep."
+            },
+            
+            // Digital Services
+            {
+                id: 5,
+                name: "SEO Optimization Service",
+                category: "services",
+                subcategory: "seo",
+                price: 299,
+                rating: 4.9,
+                reviews: 412,
+                image: "https://picsum.photos/seed/service1/400/300.jpg",
+                description: "Professional SEO optimization service including keyword research, on-page optimization, and link building.",
+                featured: true
+            },
+            {
+                id: 6,
+                name: "Social Media Management",
+                category: "services",
+                subcategory: "social",
+                price: 399,
+                rating: 4.7,
+                reviews: 328,
+                image: "https://picsum.photos/seed/service2/400/300.jpg",
+                description: "Complete social media management including content creation, posting, and community engagement."
+            },
+            {
+                id: 7,
+                name: "Email Campaign Setup",
+                category: "services",
+                subcategory: "email",
+                price: 249,
+                rating: 4.5,
+                reviews: 267,
+                image: "https://picsum.photos/seed/service3/400/300.jpg",
+                description: "Professional email campaign setup with automation, segmentation, and A/B testing."
+            },
+            {
+                id: 8,
+                name: "Content Marketing Strategy",
+                category: "services",
+                price: 499,
+                rating: 4.8,
+                reviews: 195,
+                image: "https://picsum.photos/seed/service4/400/300.jpg",
+                description: "Comprehensive content marketing strategy including blog posts, videos, and infographics."
+            },
+            {
+                id: 9,
+                name: "PPC Advertising Management",
+                category: "services",
+                subcategory: "ppc",
+                price: 599,
+                rating: 4.6,
+                reviews: 143,
+                image: "https://picsum.photos/seed/service5/400/300.jpg",
+                description: "Expert PPC campaign management on Google Ads, Facebook Ads, and LinkedIn Ads."
+            },
+            {
+                id: 10,
+                name: "Website Audit & Optimization",
+                category: "services",
+                subcategory: "seo",
+                price: 199,
+                rating: 4.7,
+                reviews: 278,
+                image: "https://picsum.photos/seed/service6/400/300.jpg",
+                description: "Complete website audit with actionable recommendations to improve performance and conversions."
+            },
+            {
+                id: 11,
+                name: "Influencer Marketing Guide",
+                category: "ebooks",
+                subcategory: "social",
+                price: 49.99,
+                rating: 4.4,
+                reviews: 167,
+                image: "https://picsum.photos/seed/ebook5/400/300.jpg",
+                description: "Learn how to leverage influencer marketing to grow your brand and reach new audiences."
+            },
+            {
+                id: 12,
+                name: "Conversion Rate Optimization",
+                category: "services",
+                price: 799,
+                rating: 4.9,
+                reviews: 224,
+                image: "https://picsum.photos/seed/service7/400/300.jpg",
+                description: "Increase your website's conversion rate with proven CRO techniques and A/B testing."
+            }
+        ];
+
+        // Sample reviews data
+        const sampleReviews = [
+            { name: "John D.", rating: 5, comment: "Excellent service! Helped me rank on first page of Google in just 2 months.", date: "2023-10-15" },
+            { name: "Sarah M.", rating: 4, comment: "Great content and easy to follow. Would recommend to anyone starting out.", date: "2023-10-12" },
+            { name: "Mike R.", rating: 5, comment: "Worth every penny! The strategies actually work and I've seen great results.", date: "2023-10-10" },
+            { name: "Emily L.", rating: 4, comment: "Very informative and well-written. Could use more examples though.", date: "2023-10-08" },
+            { name: "David K.", rating: 5, comment: "The best investment I've made for my business. Highly recommended!", date: "2023-10-05" }
+        ];
+
+        // State management
+        let currentCategory = 'all';
+        let currentPriceFilter = 'all';
+        let currentSort = 'featured';
+        let displayedProducts = 8;
+        let selectedProduct = null;
+        let userRatingValue = 0;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+            setupEventListeners();
+            checkUserLogin();
+        });
+
+        // Check if user is logged in
+        function checkUserLogin() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const usernameDisplay = document.getElementById('usernameDisplay');
+            const guestOptions = document.getElementById('guestOptions');
+            const userOptions = document.getElementById('userOptions');
+            const adminOptions = document.getElementById('adminOptions');
+            
+            if (currentUser) {
+                usernameDisplay.textContent = currentUser.username;
+                guestOptions.classList.add('hidden');
+                userOptions.classList.remove('hidden');
+                
+                if (currentUser.isAdmin) {
+                    adminOptions.classList.remove('hidden');
+                }
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Dark mode toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            darkModeToggle.addEventListener('click', toggleDarkMode);
+
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // User menu
+            const userMenuButton = document.getElementById('userMenuButton');
+            const userDropdown = document.getElementById('userDropdown');
+            userMenuButton.addEventListener('click', () => {
+                userDropdown.classList.toggle('hidden');
+            });
+
+            // Category tabs
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    categoryTabs.forEach(t => {
+                        t.classList.remove('active');
+                        t.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+                    });
+                    tab.classList.add('active');
+                    tab.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+                    
+                    currentCategory = tab.dataset.category;
+                    displayedProducts = 8;
+                    loadProducts();
+                });
+            });
+
+            // Price filters
+            const priceFilters = document.querySelectorAll('.filter-badge');
+            priceFilters.forEach(filter => {
+                filter.addEventListener('click', () => {
+                    currentPriceFilter = filter.dataset.price;
+                    displayedProducts = 8;
+                    loadProducts();
+                });
+            });
+
+            // Sort select
+            const sortSelect = document.getElementById('sortSelect');
+            sortSelect.addEventListener('change', (e) => {
+                currentSort = e.target.value;
+                loadProducts();
+            });
+
+            // Search
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', debounce(() => {
+                displayedProducts = 8;
+                loadProducts();
+            }, 300));
+
+            // Load more button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            loadMoreBtn.addEventListener('click', () => {
+                displayedProducts += 4;
+                loadProducts();
+            });
+
+            // Modal controls
+            const closeModal = document.getElementById('closeModal');
+            const productModal = document.getElementById('productModal');
+            closeModal.addEventListener('click', () => {
+                productModal.classList.add('hidden');
+            });
+
+            // User rating stars
+            const userRatingStars = document.querySelectorAll('#userRating .star');
+            userRatingStars.forEach(star => {
+                star.addEventListener('click', () => {
+                    userRatingValue = parseInt(star.dataset.rating);
+                    updateUserRating();
+                });
+                star.addEventListener('mouseenter', () => {
+                    const hoverValue = parseInt(star.dataset.rating);
+                    userRatingStars.forEach((s, index) => {
+                        if (index < hoverValue) {
+                            s.classList.add('filled');
+                        } else {
+                            s.classList.remove('filled');
+                        }
+                    });
+                });
+            });
+
+            document.getElementById('userRating').addEventListener('mouseleave', updateUserRating);
+
+            // Submit review
+            const submitReview = document.getElementById('submitReview');
+            submitReview.addEventListener('click', submitReviewHandler);
+
+            // Logout
+            const logoutButton = document.getElementById('logoutButton');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('currentUser');
+                    window.location.reload();
+                });
+            }
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        }
+
+        // Load and display products
+        function loadProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            // Filter products
+            let filteredProducts = products.filter(product => {
+                const matchesCategory = currentCategory === 'all' || 
+                                     product.category === currentCategory || 
+                                     product.subcategory === currentCategory;
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                     product.description.toLowerCase().includes(searchTerm);
+                const matchesPrice = checkPriceFilter(product.price);
+                
+                return matchesCategory && matchesSearch && matchesPrice;
+            });
+
+            // Sort products
+            filteredProducts = sortProducts(filteredProducts);
+
+            // Limit displayed products
+            const productsToShow = filteredProducts.slice(0, displayedProducts);
+
+            // Clear and populate grid
+            productsGrid.innerHTML = '';
+            productsToShow.forEach(product => {
+                const productCard = createProductCard(product);
+                productsGrid.appendChild(productCard);
+            });
+
+            // Hide/show load more button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (productsToShow.length >= filteredProducts.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'inline-block';
+            }
+        }
+
+        // Check price filter
+        function checkPriceFilter(price) {
+            switch(currentPriceFilter) {
+                case '0-50': return price >= 0 && price <= 50;
+                case '50-200': return price > 50 && price <= 200;
+                case '200+': return price > 200;
+                default: return true;
+            }
+        }
+
+        // Sort products
+        function sortProducts(productsArray) {
+            const sorted = [...productsArray];
+            switch(currentSort) {
+                case 'price-low':
+                    return sorted.sort((a, b) => a.price - b.price);
+                case 'price-high':
+                    return sorted.sort((a, b) => b.price - a.price);
+                case 'rating':
+                    return sorted.sort((a, b) => b.rating - a.rating);
+                case 'newest':
+                    return sorted.sort((a, b) => b.id - a.id);
+                case 'featured':
+                default:
+                    return sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+            }
+        }
+
+        // Create product card
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden cursor-pointer';
+            
+            const categoryColors = {
+                ebooks: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+                services: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+            };
+            
+            card.innerHTML = `
+                <div class="relative">
+                    <img src="${product.image}" alt="${product.name}" class="w-full product-image">
+                    ${product.featured ? '<span class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">Featured</span>' : ''}
+                </div>
+                <div class="p-4">
+                    <div class="mb-2">
+                        <span class="inline-block px-2 py-1 text-xs rounded-full ${categoryColors[product.category]}">
+                            ${product.category === 'ebooks' ? 'E-Book' : 'Service'}
+                        </span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-gray-800 dark:text-gray-200">${product.name}</h3>
+                    <div class="flex items-center mb-2">
+                        ${createStarRating(product.rating)}
+                        <span class="text-sm text-gray-600 dark:text-gray-400 ml-2">(${product.reviews})</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">${product.description}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-primary-600 dark:text-primary-400">$${product.price}</span>
+                        <button class="bg-primary-600 hover:bg-primary-700 text-white text-sm px-3 py-1 rounded transition duration-300">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            card.addEventListener('click', () => showProductModal(product));
+            return card;
+        }
+
+        // Create star rating HTML
+        function createStarRating(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '<i class="fas fa-star text-yellow-400"></i>';
+                } else if (i - 0.5 <= rating) {
+                    stars += '<i class="fas fa-star-half-alt text-yellow-400"></i>';
+                } else {
+                    stars += '<i class="far fa-star text-yellow-400"></i>';
+                }
+            }
+            return `<div class="star-rating">${stars}</div>`;
+        }
+
+        // Show product modal
+        function showProductModal(product) {
+            selectedProduct = product;
+            const modal = document.getElementById('productModal');
+            
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalImage').src = product.image;
+            document.getElementById('modalCategory').textContent = product.category === 'ebooks' ? 'E-Book' : 'Service';
+            document.getElementById('modalRating').innerHTML = createStarRating(product.rating);
+            document.getElementById('modalRatingText').textContent = `${product.rating} out of 5`;
+            document.getElementById('modalReviews').textContent = `${product.reviews} reviews`;
+            document.getElementById('modalDescription').textContent = product.description;
+            document.getElementById('modalPrice').textContent = `$${product.price}`;
+            
+            // Load reviews
+            loadProductReviews();
+            
+            modal.classList.remove('hidden');
+        }
+
+        // Load product reviews
+        function loadProductReviews() {
+            const reviewsContainer = document.getElementById('reviewsContainer');
+            reviewsContainer.innerHTML = '';
+            
+            sampleReviews.forEach(review => {
+                const reviewElement = document.createElement('div');
+                reviewElement.className = 'border-b border-gray-200 dark:border-gray-700 pb-3';
+                reviewElement.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center">
+                            <div class="font-semibold text-gray-800 dark:text-gray-200">${review.name}</div>
+                            <div class="ml-2">${createStarRating(review.rating)}</div>
+                        </div>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">${review.date}</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">${review.comment}</p>
+                `;
+                reviewsContainer.appendChild(reviewElement);
+            });
+        }
+
+        // Update user rating display
+        function updateUserRating() {
+            const userRatingStars = document.querySelectorAll('#userRating .star');
+            userRatingStars.forEach((star, index) => {
+                if (index < userRatingValue) {
+                    star.classList.add('filled');
+                } else {
+                    star.classList.remove('filled');
+                }
+            });
+        }
+
+        // Submit review handler
+        function submitReviewHandler() {
+            const reviewText = document.getElementById('reviewText').value;
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (!currentUser) {
+                alert('Please login to submit a review');
+                return;
+            }
+            
+            if (userRatingValue === 0) {
+                alert('Please select a rating');
+                return;
+            }
+            
+            if (reviewText.trim() === '') {
+                alert('Please write a review');
+                return;
+            }
+            
+            // Save review to localStorage
+            const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+            const newReview = {
+                id: Date.now(),
+                productId: selectedProduct.id,
+                productName: selectedProduct.name,
+                username: currentUser.username,
+                rating: userRatingValue,
+                comment: reviewText,
+                date: new Date().toISOString()
+            };
+            
+            reviews.push(newReview);
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+            
+            // Reset form
+            document.getElementById('reviewText').value = '';
+            userRatingValue = 0;
+            updateUserRating();
+            
+            // Reload reviews
+            loadProductReviews();
+            
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-md z-50';
+            successMessage.textContent = 'Review submitted successfully!';
+            document.body.appendChild(successMessage);
+            
+            setTimeout(() => {
+                successMessage.remove();
+            }, 3000);
+        }
+
+        // Debounce function for search
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Check for saved dark mode preference
+        const darkMode = localStorage.getItem('darkMode');
+        if (darkMode === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>
