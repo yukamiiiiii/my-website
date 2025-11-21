@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Trust The Process</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-md transition-colors duration-300 sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold text-primary-600 dark:text-primary-400">Trust The Process</h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Home</a>
+                    <a href="products.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Services</a>
+                    <a href="about.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">About</a>
+                    <a href="contact.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Contact</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline"></i>
+                    </button>
+                    
+                    <!-- User Menu -->
+                    <div class="relative">
+                        <button id="userMenuButton" class="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
+                            <i class="fas fa-user-circle text-xl"></i>
+                            <span id="usernameDisplay" class="hidden md:inline">Guest</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        
+                        <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 hidden">
+                            <div id="guestOptions" class="py-1">
+                                <a href="login.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Login</a>
+                                <a href="signup.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Sign Up</a>
+                            </div>
+                            <div id="userOptions" class="py-1 hidden">
+                                <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
+                                <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
+                            </div>
+                            <div id="adminOptions" class="py-1 hidden border-t border-gray-200 dark:border-gray-700">
+                                <a href="admin.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Admin Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button id="mobileMenuToggle" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+                <a href="index.html" class="block py-2 text-gray-700 dark:text-gray-300">Home</a>
+                <a href="products.html" class="block py-2 text-gray-700 dark:text-gray-300">Services</a>
+                <a href="about.html" class="block py-2 text-gray-700 dark:text-gray-300">About</a>
+                <a href="contact.html" class="block py-2 text-gray-700 dark:text-gray-300">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-primary-600 to-primary-800 py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Terms of Service</h2>
+            <p class="text-xl text-white max-w-3xl mx-auto">
+                Please read our terms carefully before using our services
+            </p>
+        </div>
+    </section>
+
+    <!-- Terms Content -->
+    <section class="py-12 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="prose prose prose-lg dark:prose-invert max-w-none">
+                <h1 class="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-200">Terms of Service</h1>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">Last updated: October 15, 2023</p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">1. Acceptance of Terms</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    By accessing and using Trust The Process ("the Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, you must not access or use the Service.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">2. Description of Service</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Trust The Process provides digital marketing services and educational resources including but not limited to SEO optimization, social media management, content creation, email marketing, and digital marketing e-books.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">3. User Accounts</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    3.1. You must provide accurate, current, and complete information when creating an account. You are responsible for maintaining the confidentiality of your account credentials.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    3.2. You must be at least 18 years old to create an account and use our services.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    3.3. You are responsible for all activities that occur under your account.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">4. Payment Terms</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    4.1. All prices are listed in USD unless otherwise specified.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    4.2. Payment must be made in full before services are rendered.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    4.3. We accept various payment methods including credit cards, PayPal, and bank transfers.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">5. Refund Policy</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    5.1. We offer a 30-day money-back guarantee for most services.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    5.2. Refunds are processed within 5-7 business days after approval.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    5.3. Digital products (e-books) are non-refundable once downloaded.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">6. Intellectual Property</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    6.1. All content provided by Trust The Process is protected by copyright, trademark, and other intellectual property laws.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    6.2. You may not copy, reproduce, distribute, or create derivative works without explicit permission.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">7. Service Availability</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    7.1. We strive to maintain 99.9% uptime but do not guarantee uninterrupted service.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    7.2. We may temporarily suspend services for maintenance or updates.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">8. Limitation of Liability</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    8.1. Our services are provided "as is" without warranties of any kind.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    8.2. We shall not be liable for any indirect, incidental, special, or consequential damages.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">9. Termination</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    9.1. We may terminate or suspend your account for violation of these Terms.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    9.2. You may terminate your account at any time through your account settings.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">10. Changes to Terms</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    10.1. We reserve the right to modify these Terms at any time.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    10.2. Changes will be effective immediately upon posting on our website.
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    10.3. Your continued use of the Service constitutes acceptance of any changes.
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">11. Contact Information</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    If you have any questions about these Terms, please contact us at:
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Email: legal@trusttheprocess.com<br>
+                    Phone: +1 (555) 123-4567
+                </p>
+                
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">12. Governing Law</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    These Terms shall be governed by and construed in accordance with the laws of the State of Delaware, United States, without regard to its conflict of law provisions.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gray-100 dark:bg-gray-900">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-200">Questions About Our Terms?</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+                If you have any questions about our Terms of Service, please don't hesitate to contact our legal team.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                    <i class="fas fa-envelope mr-2"></i>Contact Legal Team
+                </a>
+                <a href="faq.html" class="border-2 border-primary-600 text-primary-600 hover:bg-primary-700 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                    <i class="fas fa-question-circle mr-2"></i>View FAQ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Trust The Process</h3>
+                    <p class="text-gray-400">Your trusted partner for digital marketing success.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white transition">Services</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition">About</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-400">contact@trusttheprocess.com</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2023 Trust The Process. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved dark mode preference
+        const darkMode = localStorage.getItem('darkMode');
+        if (darkMode === 'true') {
+            html.classList.add('dark');
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // User Menu
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userDropdown = document.getElementById('userDropdown');
+        
+        userMenuButton.addEventListener('click', () => {
+            userDropdown.classList.toggle('hidden');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!userMenuButton.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+        
+        // Check if user is logged in
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        const guestOptions = document.getElementById('guestOptions');
+        const userOptions = document.getElementById('userOptions');
+        const adminOptions = document.getElementById('adminOptions');
+        
+        if (currentUser) {
+            usernameDisplay.textContent = currentUser.username;
+            guestOptions.classList.add('hidden');
+            userOptions.classList.remove('hidden');
+            
+            if (currentUser.isAdmin) {
+                adminOptions.classList.remove('hidden');
+            }
+        }
+        
+        // Logout functionality
+        const logoutButton = document.getElementById('logoutButton');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Trust The Process</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .faq-item {
+            transition: all 0.3s ease;
+        }
+        
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-item.active .faq-content {
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card {
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-md transition-colors duration-300 sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold text-primary-600 dark:text-primary-400">Trust The Process</h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Home</a>
+                    <a href="products.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Services</a>
+                    <a href="about.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">About</a>
+                    <a href="contact.html" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition">Contact</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline"></i>
+                    </button>
+                    
+                    <!-- User Menu -->
+                    <div class="relative">
+                        <button id="userMenuButton" class="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
+                            <i class="fas fa-user-circle text-xl"></i>
+                            <span id="usernameDisplay" class="hidden md:inline">Guest</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        
+                        <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 hidden">
+                            <div id="guestOptions" class="py-1">
+                                <a href="login.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Login</a>
+                                <a href="signup.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Sign Up</a>
+                            </div>
+                            <div id="userOptions" class="py-1 hidden">
+                                <a href="settings.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
+                                <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
+                            </div>
+                            <div id="adminOptions" class="py-1 hidden border-t border-gray-200 dark:border-gray-700">
+                                <a href="admin.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Admin Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button id="mobileMenuToggle" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+                <a href="index.html" class="block py-2 text-gray-700 dark:text-gray-300">Home</a>
+                <a href="products.html" class="block py-2 text-gray-700 dark:text-gray-300">Services</a>
+                <a href="about.html" class="block py-2 text-gray-700 dark:text-gray-300">About</a>
+                <a href="contact.html" class="block py-2 text-gray-700 dark:text-gray-300">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-primary-600 to-primary-800 py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+            <p class="text-xl text-white max-w-3xl mx-auto">
+                Find answers to common questions about our digital marketing services and platform
+            </p>
+        </div>
+    </section>
+
+    <!-- FAQ Categories -->
+    <section class="py-12 bg-gray-100 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="category-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md cursor-pointer" data-category="general">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto">
+                            <i class="fas fa-question-circle text-2xl text-primary-600 dark:text-primary-400"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-center text-gray-800 dark:text-gray-200">General</h3>
+                </div>
+                
+                <div class="category-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md cursor-pointer" data-category="services">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto">
+                            <i class="fas fa-cogs text-2xl text-primary-600 dark:text-primary-400"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-center text-gray-800 dark:text-gray-200">Services</h3>
+                </div>
+                
+                <div class="category-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md cursor-pointer" data-category="billing">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto">
+                            <i class="fas fa-credit-card text-2xl text-primary-600 dark:text-primary-400"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-center text-gray-800 dark:text-gray-200">Billing & Payments</h3>
+                </div>
+                
+                <div class="category-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md cursor-pointer" data-category="technical">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto">
+                            <i class="fas fa-tools text-2xl text-primary-600 dark:text-primary-400"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-center text-gray-800 dark:text-gray-200">Technical</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Items -->
+    <section class="py-12 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div id="faqContainer" class="max-w-4xl mx-auto space-y-4">
+                <!-- General FAQs -->
+                <div class="faq-category" data-category="general">
+                    <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <button class="w-full flex justify-between items-center text-left py-3">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">What is Trust The Process?</h3>
+                            <i class="fas fa-chevron-down faq-icon text-gray-500 dark:text-gray-400"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p class="text-gray-600 dark:text-gray-400 mt-3">
+                                Trust The Process is a comprehensive digital marketing platform that offers both e-books and professional services. We help businesses improve their online presence through SEO, social media marketing, content creation, and more.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <button class="w-full flex justify-between items-center text-left py-3">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">How do I get started?</h3>
+                            <i class="fas fa-chevron-down faq-icon text-gray-500 dark:text-gray-400"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p class="text-gray-600 dark:text-gray-400 mt-3">
+                                Getting started is easy! Simply browse our services, create an account, and purchase the services you need. You can also start with our e-books to learn digital marketing fundamentals.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <button class="w-full flex justify-between items-center text-left py-3">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Do you offer refunds?</h3>
+                            <i class="fas fa-chevron-down faq-icon text-gray-500 dark:text-gray-400"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p class="text-gray-600 dark:text-gray-400 mt-3">
+                                Yes, we offer a 30-day money-back guarantee for our services. If you're not satisfied with the results, contact our support team for a full refund.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Services FAQs -->
+                <div class="faq-category hidden" data-category="services">
+                    <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <button class="w-full flex justify-between items-center text-left py-3">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">What services do you offer?</h3>
+                            <i class="fas fa-chevron-down faq-icon text-gray-500 dark:text-gray-400"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p class="text-gray-600 dark:text-gray-400 mt-3">
+                                We offer a wide range of digital marketing services including SEO optimization, social media management, email marketing, content creation, PPC advertising, and website audits.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <button class="w-full flex justify-between items-center text-left py-3">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">How long does it take to see results?</h3>
+                            <i class="fas fa-chevron-down faq-icon text-gray-500 dark:text-gray-400"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p class="text-gray-600 dark:text-gray-400 mt-3">
+                                Results vary by service type. SEO typically shows results in 3-6 months, while social media campaigns can show engagement improvements within 2-4 weeks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Billing FAQs -->
+                <div class="faq-category hidden" data-category="billing">
+                    <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <button class="w-full flex justify-between items-center text-left py-3">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">What payment methods do you accept?</h3>
+                            <i class="fas fa-chevron-down faq-icon text-gray-500 dark:text-gray-400"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p class="text-gray-600 dark:text-gray-400 mt-3">
+                                We accept all major credit cards, PayPal, Stripe, and bank transfers for larger projects. All payments are processed securely.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <button class="w-full flex justify-between items-center text-left py-3">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Do you offer payment plans?</h3>
+                            <i class="fas fa-chevron-down faq-icon text-gray-500 dark:text-gray-400"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p class="text-gray-600 dark:text-gray-400 mt-3">
+                                Yes, we offer flexible payment plans including monthly retainers, project-based pricing, and custom packages for enterprise clients.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Technical FAQs -->
+                <div class="faq-category hidden" data-category="technical">
+                    <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <button class="w-full flex justify-between items-center text-left py-3">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Is my data secure?</h3>
+                            <i class="fas fa-chevron-down faq-icon text-gray-500 dark:text-gray-400"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p class="text-gray-600 dark:text-gray-400 mt-3">
+                                Absolutely. We use industry-standard encryption and security measures to protect your data. We're fully GDPR and CCPA compliant.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                        <button class="w-full flex justify-between items-center text-left py-3">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Do you provide analytics?</h3>
+                            <i class="fas fa-chevron-down faq-icon text-gray-500 dark:text-gray-400"></i>
+                        </button>
+                        <div class="faq-content">
+                            <p class="text-gray-600 dark:text-gray-400 mt-3">
+                                Yes, all our services include detailed analytics and reporting. You'll have access to real-time performance metrics and monthly reports.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Still have questions section -->
+            <div class="mt-12 text-center bg-gray-50 dark:bg-gray-900 p-8 rounded-lg">
+                <h3 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">Still Have Questions?</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Can't find the answer you're looking for? Our support team is here to help.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="contact.html" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                        <i class="fas fa-envelope mr-2"></i>Contact Support
+                    </a>
+                    <a href="#" class="border-2 border-primary-600 text-primary-600 hover:bg-primary-700 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                        <i class="fas fa-comments mr-2"></i>Live Chat
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Trust The Process</h3>
+                    <p class="text-gray-400">Your trusted partner for digital marketing success.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white transition">Services</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition">About</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-400">contact@trusttheprocess.com</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2023 Trust The Process. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved dark mode preference
+        const darkMode = localStorage.getItem('darkMode');
+        if (darkMode === 'true') {
+            html.classList.add('dark');
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // User Menu
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userDropdown = document.getElementById('userDropdown');
+        
+        userMenuButton.addEventListener('click', () => {
+            userDropdown.classList.toggle('hidden');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!userMenuButton.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+        
+        // Check if user is logged in
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        const guestOptions = document.getElementById('guestOptions');
+        const userOptions = document.getElementById('userOptions');
+        const adminOptions = document.getElementById('adminOptions');
+        
+        if (currentUser) {
+            usernameDisplay.textContent = currentUser.username;
+            guestOptions.classList.add('hidden');
+            userOptions.classList.remove('hidden');
+            
+            if (currentUser.isAdmin) {
+                adminOptions.classList.remove('hidden');
+            }
+        }
+        
+        // Logout functionality
+        const logoutButton = document.getElementById('logoutButton');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            });
+        }
+        
+        // FAQ Category Filter
+        const categoryCards = document.querySelectorAll('.category-card');
+        const faqCategories = document.querySelectorAll('.faq-category');
+        
+        categoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const category = card.dataset.category;
+                
+                // Hide all categories
+                faqCategories.forEach(cat => {
+                    cat.classList.add('hidden');
+                });
+                
+                // Show selected category
+                const selectedCategory = document.querySelector(`.faq-category[data-category="${category}"]`);
+                if (selectedCategory) {
+                    selectedCategory.classList.remove('hidden');
+                }
+            });
+        });
+        
+        // FAQ Items
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const button = item.querySelector('button');
+            const content = item.querySelector('.faq-content');
+            const icon = item.querySelector('.faq-icon');
+            
+            button.addEventListener('click', () => {
+                item.classList.toggle('active');
+                
+                // Close other items in the same category
+                const parentCategory = item.parentElement;
+                const siblingItems = parentCategory.querySelectorAll('.faq-item');
+                siblingItems.forEach(sibling => {
+                    if (sibling !== item) {
+                        sibling.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
